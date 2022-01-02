@@ -1,11 +1,11 @@
 # Thunderbird in a container
 #
-# docker run --cpus="3" -d \
-#            -v /tmp/.X11-unix:/tmp/.X11-unix \
-#            -v /home/johnk/:/home/user \
-#            -e DISPLAY=unix$DISPLAY \
-#            --device /dev/dri \
-#            frumioj/tbird-docked
+# sudo docker run --cpus="1" -d \
+#             -v /tmp/.X11-unix:/tmp/.X11-unix \
+#             -v /home/johnk/:/home/user \
+#             -v /etc/localtime:/etc/localtime:ro \
+#             -e DISPLAY=unix$DISPLAY \
+#             --device /dev/dri frumioj/tbird-docked
 
 FROM fedora:34
 LABEL maintainer "John Kemp <stable.pseudonym@gmail.com>"

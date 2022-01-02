@@ -4,4 +4,4 @@ Thunderbird is an excellent mail reader, but it uses a tonne of CPU which sets t
 
 Note: if you have Thunderbird already installed, make sure that the version is roughly the same as you'll use in your docker machine, otherwise it will want to create a new profile for you, rather than using the one you already have in ~/.thunderbird.
 
-`docker run --cpus="3" -d -v /tmp/.X11-unix:/tmp/.X11-unix -v /home/johnk/:/home/user -e DISPLAY=unix$DISPLAY --device /dev/dri frumioj/tbird-docked`
+`sudo docker run --cpus="1" -d -v /tmp/.X11-unix:/tmp/.X11-unix -v /home/johnk/:/home/user -v /etc/localtime:/etc/localtime:ro -e DISPLAY=unix$DISPLAY --device /dev/dri frumioj/tbird-docked`
