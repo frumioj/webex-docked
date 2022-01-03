@@ -2,4 +2,4 @@
 set -e
 set -o pipefail
 
-su user -p -c "/usr/bin/thunderbird"
+su user -p -c "/opt/Webex/bin/CiscoCollabHost"

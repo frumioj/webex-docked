@@ -7,15 +7,15 @@
 #             -e DISPLAY=unix$DISPLAY \
 #             --device /dev/dri frumioj/webex-docked
 
-FROM ubuntu:18.04
+FROM centos:8
 LABEL maintainer "John Kemp <stable.pseudonym@gmail.com>"
 
-RUN apt-get update \
-    && apt-get install -y wget
+RUN yum update -y \
+    && yum install -y wget
 
-RUN wget https://binaries.webex.com/WebexDesktop-Ubuntu-Official-Package/Webex.deb
+RUN wget https://binaries.webex.com/WebexDesktop-CentOS-Official-Package/Webex.rpm
 
-RUN apt-get install -y ./Webex.deb
+RUN yum install -y ./Webex.rpm
 
 ENV HOME /home/user
 RUN useradd --create-home --home-dir $HOME user \
