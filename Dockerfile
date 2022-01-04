@@ -1,19 +1,27 @@
-# Thunderbird in a container
+# Webex in a container
 #
-# sudo docker run --cpus="3" -d \
+# sudo docker run -d --cpus="3"
 #             -v /tmp/.X11-unix:/tmp/.X11-unix \
-#             -v /home/johnk/:/home/user \
-#             -v /etc/localtime:/etc/localtime:ro \
-#             -e DISPLAY=unix$DISPLAY \
-#             --device /dev/dri frumioj/webex-docked
-
-FROM ubuntu:18.04
+#             -v /home/$USER/:/home/user \
+#      	      -v /dev/shm:/dev/shm \
+#	      -v "/etc/alsa:/etc/alsa" \
+#	      -v "/usr/share/alsa:/usr/share/alsa" \
+#	      -v "/home/$USER/.config/pulse:/home/user/.config/pulse" \
+#	      -v "/run/$USER/$UID/pulse/native:/run/user/$UID/pulse/native"
+#	      --env "PULSE_SERVER=unix:/run/user/$UID/pulse/native"
+#	      --device /dev/dri --privileged
+#	      -e "DISPLAY=unix:0.0" frumioj/webex-docked
+	     
+FROM ubuntu:20.04
 LABEL maintainer "John Kemp <stable.pseudonym@gmail.com>"
+ENV DEBIAN_FRONTEND noninteractive
 
+# Add opengl libs, gtk, and wget
 RUN apt-get update \
-    && apt-get install -y wget
+    && apt-get install -y -qq --no-install-recommends wget libgtk-3-0 libglvnd0 libgl1 libglx0 libegl1 libxext6 libx11-6
 
-RUN wget https://binaries.webex.com/WebexDesktop-Ubuntu-Official-Package/Webex.deb
+# Grab the Webex package from the official(!) site
+RUN wget --no-check-certificate https://binaries.webex.com/WebexDesktop-Ubuntu-Official-Package/Webex.deb
 
 RUN apt-get install -y ./Webex.deb
 
